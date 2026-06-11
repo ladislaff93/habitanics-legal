@@ -516,7 +516,16 @@ article h3 {
     margin-top: 16px;
 }
 
+.share-icon {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+}
+
 .share-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
     padding: 10px 24px;
     background: transparent;
     color: var(--link-color);

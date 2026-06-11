@@ -57,7 +57,7 @@ No phone after 10pm</textarea>
             <input type="number" id="year" min="2024" max="2100">
 
             <button class="tool-button" id="print">Print / Save as PDF</button>
-            <button class="share-button" id="share">📤 Share this tracker</button>
+            <button class="share-button" id="share"><svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/><path d="M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"/></svg><span>Share this tracker</span></button>
             <p class="tool-note">Printing tip: use landscape orientation. "Save as PDF" in the print dialog gives you a file. The grid below updates live.</p>
         </div>
 
@@ -134,9 +134,10 @@ No phone after 10pm</textarea>
                 navigator.share({ text: text, url: url }).catch(function () {});
             } else {
                 navigator.clipboard.writeText(text + " " + url).then(function () {
-                    const old = btn.textContent;
-                    btn.textContent = "Copied!";
-                    setTimeout(function () { btn.textContent = old; }, 1500);
+                    const label = btn.querySelector("span");
+                    const old = label.textContent;
+                    label.textContent = "Copied!";
+                    setTimeout(function () { label.textContent = old; }, 1500);
                 });
             }
         }

@@ -67,7 +67,7 @@
             </div>
 
             <div class="share-row">
-                <button class="share-button" id="share">📤 Share my target date</button>
+                <button class="share-button" id="share"><svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/><path d="M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"/></svg><span>Share my target date</span></button>
             </div>
             <p class="tool-note">Estimate based on Lally et al. (2009), <a href="https://onlinelibrary.wiley.com/doi/10.1002/ejsp.674" rel="noopener" target="_blank">"How are habits formed: Modelling habit formation in the real world"</a> — automaticity took 18 to 254 days across participants, with a median of 66. Harder behaviors and lower frequency take longer. This is an estimate, not a promise.</p>
         </div>
@@ -126,9 +126,10 @@
                 navigator.share({ text: text, url: url }).catch(function () {});
             } else {
                 navigator.clipboard.writeText(text + " " + url).then(function () {
-                    const old = btn.textContent;
-                    btn.textContent = "Copied!";
-                    setTimeout(function () { btn.textContent = old; }, 1500);
+                    const label = btn.querySelector("span");
+                    const old = label.textContent;
+                    label.textContent = "Copied!";
+                    setTimeout(function () { label.textContent = old; }, 1500);
                 });
             }
         }
