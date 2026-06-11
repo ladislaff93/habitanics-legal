@@ -30,6 +30,14 @@
     </script>
 </head>
 <body>
+    <nav class="site-nav">
+        <a href="/" class="nav-brand"><img src="/favicon-light.png" alt="" class="nav-logo">Habitanics</a>
+        <div class="nav-links">
+            <a href="/tools/">Free Tools</a>
+            <a href="/blog/">Blog</a>
+            <a href="/press/">Press</a>
+        </div>
+    </nav>
     <div class="header">
         <h1>Printable Habit Tracker</h1>
         <p>Your habits, your month, one clean grid</p>
@@ -49,6 +57,7 @@ No phone after 10pm</textarea>
             <input type="number" id="year" min="2024" max="2100">
 
             <button class="tool-button" id="print">Print / Save as PDF</button>
+            <button class="share-button" id="share">Share this tracker</button>
             <p class="tool-note">Printing tip: use landscape orientation. "Save as PDF" in the print dialog gives you a file. The grid below updates live.</p>
         </div>
 
@@ -119,6 +128,30 @@ No phone after 10pm</textarea>
             html += "</tbody>";
             document.getElementById("grid").innerHTML = html;
         }
+
+        function shareResult(text, url, btn) {
+            if (navigator.share) {
+                navigator.share({ text: text, url: url }).catch(function () {});
+            } else {
+                navigator.clipboard.writeText(text + " " + url).then(function () {
+                    const old = btn.textContent;
+                    btn.textContent = "Copied!";
+                    setTimeout(function () { btn.textContent = old; }, 1500);
+                });
+            }
+        }
+
+        const params = new URLSearchParams(location.search);
+        if (params.get("habits")) habitsEl.value = params.get("habits").split("|").join("\n");
+        if (params.get("m")) monthEl.value = params.get("m");
+        if (params.get("y")) yearEl.value = params.get("y");
+
+        document.getElementById("share").addEventListener("click", function () {
+            const habits = habitsEl.value.split("\n").map(function (h) { return h.trim(); }).filter(Boolean).slice(0, 15);
+            const url = "https://habitanics.app/tools/printable-habit-tracker/?m=" + monthEl.value +
+                "&y=" + yearEl.value + "&habits=" + encodeURIComponent(habits.join("|"));
+            shareResult("My " + months[parseInt(monthEl.value, 10)] + " habit tracker 🌱 print yours free:", url, this);
+        });
 
         habitsEl.addEventListener("input", render);
         monthEl.addEventListener("change", render);

@@ -30,6 +30,14 @@
     </script>
 </head>
 <body>
+    <nav class="site-nav">
+        <a href="/" class="nav-brand"><img src="/favicon-light.png" alt="" class="nav-logo">Habitanics</a>
+        <div class="nav-links">
+            <a href="/tools/">Free Tools</a>
+            <a href="/blog/">Blog</a>
+            <a href="/press/">Press</a>
+        </div>
+    </nav>
     <div class="header">
         <h1>1% Better Every Day Calculator</h1>
         <p>What tiny daily improvements compound into</p>
@@ -45,6 +53,10 @@
             <div class="result-card">
                 <div class="result-big" id="result">37.8&times;</div>
                 <div class="result-sub" id="result-sub">better after 365 days — versus 0.03&times; if you get 1% worse instead</div>
+            </div>
+
+            <div class="share-row">
+                <button class="share-button" id="share">Share my result</button>
             </div>
 
             <svg id="chart" class="tool-chart" viewBox="0 0 600 300" role="img" aria-label="Compound improvement curve"></svg>
@@ -110,6 +122,30 @@
                 '<polyline points="' + downPts + '" fill="none" stroke="#8a6b4f" stroke-width="2.5"/>' +
                 '<polyline points="' + upPts + '" fill="none" stroke="#4a7c3f" stroke-width="3"/>';
         }
+
+        function shareResult(text, url, btn) {
+            if (navigator.share) {
+                navigator.share({ text: text, url: url }).catch(function () {});
+            } else {
+                navigator.clipboard.writeText(text + " " + url).then(function () {
+                    const old = btn.textContent;
+                    btn.textContent = "Copied!";
+                    setTimeout(function () { btn.textContent = old; }, 1500);
+                });
+            }
+        }
+
+        const params = new URLSearchParams(location.search);
+        if (params.get("rate")) rateEl.value = params.get("rate");
+        if (params.get("days")) daysEl.value = params.get("days");
+
+        document.getElementById("share").addEventListener("click", function () {
+            const r = parseFloat(rateEl.value);
+            const days = parseInt(daysEl.value, 10);
+            const up = Math.pow(1 + r / 100, days);
+            const url = "https://habitanics.app/tools/one-percent-better/?rate=" + r + "&days=" + days;
+            shareResult("If I get " + r + "% better every day, I'll be " + fmt(up) + " better in " + days + " days 🌱 Calculate yours:", url, this);
+        });
 
         rateEl.addEventListener("input", render);
         daysEl.addEventListener("input", render);

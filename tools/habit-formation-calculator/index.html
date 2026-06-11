@@ -30,6 +30,14 @@
     </script>
 </head>
 <body>
+    <nav class="site-nav">
+        <a href="/" class="nav-brand"><img src="/favicon-light.png" alt="" class="nav-logo">Habitanics</a>
+        <div class="nav-links">
+            <a href="/tools/">Free Tools</a>
+            <a href="/blog/">Blog</a>
+            <a href="/press/">Press</a>
+        </div>
+    </nav>
     <div class="header">
         <h1>Habit Formation Calculator</h1>
         <p>How long until your habit becomes automatic?</p>
@@ -56,6 +64,10 @@
             <div class="result-card">
                 <div class="result-big" id="result">~66 days</div>
                 <div class="result-sub" id="result-sub"></div>
+            </div>
+
+            <div class="share-row">
+                <button class="share-button" id="share">Share my target date</button>
             </div>
             <p class="tool-note">Estimate based on Lally et al. (2009), <a href="https://onlinelibrary.wiley.com/doi/10.1002/ejsp.674" rel="noopener" target="_blank">"How are habits formed: Modelling habit formation in the real world"</a> — automaticity took 18 to 254 days across participants, with a median of 66. Harder behaviors and lower frequency take longer. This is an estimate, not a promise.</p>
         </div>
@@ -108,6 +120,42 @@
                 " should feel automatic around " + dateStr +
                 " (typical range: " + low + "–" + high + " days). Missing one day won't reset your progress.";
         }
+
+        function shareResult(text, url, btn) {
+            if (navigator.share) {
+                navigator.share({ text: text, url: url }).catch(function () {});
+            } else {
+                navigator.clipboard.writeText(text + " " + url).then(function () {
+                    const old = btn.textContent;
+                    btn.textContent = "Copied!";
+                    setTimeout(function () { btn.textContent = old; }, 1500);
+                });
+            }
+        }
+
+        function preset(groupId, attr, val) {
+            if (!val) return;
+            document.querySelectorAll("#" + groupId + " button").forEach(function (b) {
+                b.classList.toggle("active", b.dataset[attr] === val);
+            });
+        }
+
+        const params = new URLSearchParams(location.search);
+        if (params.get("habit")) document.getElementById("habit").value = params.get("habit");
+        if (params.get("d")) { reps = parseInt(params.get("d"), 10) || reps; preset("difficulty", "reps", params.get("d")); }
+        if (params.get("f")) { perWeek = parseInt(params.get("f"), 10) || perWeek; preset("frequency", "perweek", params.get("f")); }
+
+        document.getElementById("share").addEventListener("click", function () {
+            const days = Math.round(reps * 7 / perWeek);
+            const target = new Date();
+            target.setDate(target.getDate() + days);
+            const habit = document.getElementById("habit").value.trim();
+            const url = "https://habitanics.app/tools/habit-formation-calculator/?d=" + reps + "&f=" + perWeek +
+                (habit ? "&habit=" + encodeURIComponent(habit) : "");
+            const text = (habit ? "“" + habit + "”" : "My new habit") + " should feel automatic for me around " +
+                target.toLocaleDateString(undefined, { month: "long", day: "numeric" }) + " (~" + days + " days) 🌱 When will yours stick?";
+            shareResult(text, url, this);
+        });
 
         wire("difficulty", "reps", function (v) { reps = v; render(); });
         wire("frequency", "perweek", function (v) { perWeek = v; render(); });

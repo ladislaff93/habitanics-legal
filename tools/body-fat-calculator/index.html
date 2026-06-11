@@ -30,6 +30,14 @@
     </script>
 </head>
 <body>
+    <nav class="site-nav">
+        <a href="/" class="nav-brand"><img src="/favicon-light.png" alt="" class="nav-logo">Habitanics</a>
+        <div class="nav-links">
+            <a href="/tools/">Free Tools</a>
+            <a href="/blog/">Blog</a>
+            <a href="/press/">Press</a>
+        </div>
+    </nav>
     <div class="header">
         <h1>Body Fat Calculator</h1>
         <p>U.S. Navy tape method — no calipers needed</p>
@@ -65,6 +73,9 @@
             <div class="result-card" id="result-card" style="display: none;">
                 <div class="result-big" id="result"></div>
                 <div class="result-sub" id="result-sub"></div>
+                <div class="share-row">
+                    <button class="share-button" id="share">Share</button>
+                </div>
             </div>
             <p class="tool-note">Uses the U.S. Navy circumference formula (Hodgdon &amp; Beckett, 1984). Tape estimates are typically within ±3–4% of lab methods — good for tracking your trend, not for medical decisions. This tool stores nothing and sends nothing; it runs entirely in your browser.</p>
         </div>
@@ -90,6 +101,7 @@
     <script>
     (function () {
         let sex = "male", units = "metric";
+        let lastBf = null;
         const fields = ["height", "neck", "waist", "hip"];
 
         function wire(groupId, attr, cb) {
@@ -136,6 +148,7 @@
             if (!isFinite(bf) || bf < 1 || bf > 75) { card.style.display = "none"; return; }
 
             card.style.display = "block";
+            lastBf = bf;
             document.getElementById("result").textContent = bf.toFixed(1) + "%";
             document.getElementById("result-sub").textContent =
                 "estimated body fat — " + category(bf) + " for " + (sex === "male" ? "men" : "women") + " (ACE categories)";
@@ -155,6 +168,23 @@
         });
         fields.forEach(function (f) {
             document.getElementById(f).addEventListener("input", render);
+        });
+
+        // Share deliberately carries no measurements in the URL — only the
+        // result text the user chooses to send.
+        document.getElementById("share").addEventListener("click", function () {
+            if (lastBf === null) return;
+            const text = "I'm at " + lastBf.toFixed(1) + "% body fat (" + category(lastBf) + ", U.S. Navy tape method). Measure yours free:";
+            const url = "https://habitanics.app/tools/body-fat-calculator/";
+            if (navigator.share) {
+                navigator.share({ text: text, url: url }).catch(function () {});
+            } else {
+                const btn = this;
+                navigator.clipboard.writeText(text + " " + url).then(function () {
+                    btn.textContent = "Copied!";
+                    setTimeout(function () { btn.textContent = "Share"; }, 1500);
+                });
+            }
         });
     })();
     </script>
