@@ -59,7 +59,10 @@
                 <button class="share-button" id="share"><svg class="share-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3"/><path d="M8 7l4-4 4 4"/><path d="M5 11v8a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-8"/></svg><span>Share my result</span></button>
             </div>
 
-            <svg id="chart" class="tool-chart" viewBox="0 0 600 300" role="img" aria-label="Compound improvement curve"></svg>
+            <div class="chart-wrap">
+                <svg id="chart" class="tool-chart" viewBox="0 0 600 300" role="img" aria-label="Compound improvement curve"></svg>
+                <div class="chart-tip" id="chart-tip"></div>
+            </div>
             <p class="tool-note">Green: getting better every day. Brown: getting worse every day. The gap between the two lines is the whole argument for showing up daily.</p>
         </div>
 
@@ -94,6 +97,8 @@
             return x.toFixed(2) + "×";
         }
 
+        let cur = { r: 0.01, days: 365, max: 1 };
+
         function render() {
             const r = parseFloat(rateEl.value) / 100;
             const days = parseInt(daysEl.value, 10);
@@ -120,8 +125,60 @@
             chart.innerHTML =
                 '<line x1="' + PAD + '" y1="' + base.toFixed(1) + '" x2="' + (W - PAD) + '" y2="' + base.toFixed(1) + '" stroke="rgba(44,24,16,0.2)" stroke-dasharray="4 4"/>' +
                 '<polyline points="' + downPts + '" fill="none" stroke="#8a6b4f" stroke-width="2.5"/>' +
-                '<polyline points="' + upPts + '" fill="none" stroke="#4a7c3f" stroke-width="3"/>';
+                '<polyline points="' + upPts + '" fill="none" stroke="#4a7c3f" stroke-width="3"/>' +
+                '<g id="hover-layer"></g>';
+            cur = { r: r, days: days, max: max };
         }
+
+        // Hover/touch tooltip: vertical guide + dots on both curves + values.
+        const wrap = chart.parentElement;
+        const tip = document.getElementById("chart-tip");
+
+        function showHover(clientX) {
+            const rect = chart.getBoundingClientRect();
+            const xSvg = (clientX - rect.left) * W / rect.width;
+            let day = Math.round((xSvg - PAD) / (W - 2 * PAD) * cur.days);
+            day = Math.max(0, Math.min(cur.days, day));
+
+            const up = Math.pow(1 + cur.r, day);
+            const down = Math.pow(1 - cur.r, day);
+            const x = PAD + (day / cur.days) * (W - 2 * PAD);
+            const yUp = H - PAD - (up / cur.max) * (H - 2 * PAD);
+            const yDown = H - PAD - (down / cur.max) * (H - 2 * PAD);
+
+            document.getElementById("hover-layer").innerHTML =
+                '<line x1="' + x + '" y1="' + PAD + '" x2="' + x + '" y2="' + (H - PAD) + '" stroke="rgba(44,24,16,0.35)" stroke-width="1"/>' +
+                '<circle cx="' + x + '" cy="' + yUp + '" r="5" fill="#4a7c3f" stroke="#fff" stroke-width="2"/>' +
+                '<circle cx="' + x + '" cy="' + yDown + '" r="5" fill="#8a6b4f" stroke="#fff" stroke-width="2"/>';
+
+            tip.innerHTML =
+                "<strong>Day " + day + "</strong>" +
+                '<span class="tip-up">' + fmt(up) + " better</span>" +
+                '<span class="tip-down">' + fmt(down) + " worse</span>";
+            tip.style.display = "block";
+
+            const wrapRect = wrap.getBoundingClientRect();
+            const xPx = x * rect.width / W + (rect.left - wrapRect.left);
+            const yPx = yUp * rect.height / H + (rect.top - wrapRect.top);
+            // Flip the tooltip to the left side near the right edge so it
+            // never overflows the card.
+            const flip = xPx > wrapRect.width - 130;
+            tip.style.left = xPx + "px";
+            tip.style.top = Math.max(yPx, 50) + "px";
+            tip.style.transform = flip ? "translate(-112%, -110%)" : "translate(12%, -110%)";
+        }
+
+        function hideHover() {
+            tip.style.display = "none";
+            const layer = document.getElementById("hover-layer");
+            if (layer) layer.innerHTML = "";
+        }
+
+        chart.addEventListener("mousemove", function (e) { showHover(e.clientX); });
+        chart.addEventListener("mouseleave", hideHover);
+        chart.addEventListener("touchstart", function (e) { showHover(e.touches[0].clientX); }, { passive: true });
+        chart.addEventListener("touchmove", function (e) { showHover(e.touches[0].clientX); }, { passive: true });
+        chart.addEventListener("touchend", hideHover);
 
         function shareResult(text, url, btn) {
             if (navigator.share) {
