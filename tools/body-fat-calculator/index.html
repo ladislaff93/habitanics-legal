@@ -74,7 +74,7 @@
                 <div class="result-big" id="result"></div>
                 <div class="result-sub" id="result-sub"></div>
                 <div class="share-row">
-                    <button class="share-button" id="share">Share</button>
+                    <button class="share-button" id="share">📤 Share</button>
                 </div>
             </div>
             <p class="tool-note">Uses the U.S. Navy circumference formula (Hodgdon &amp; Beckett, 1984). Tape estimates are typically within ±3–4% of lab methods — good for tracking your trend, not for medical decisions. This tool stores nothing and sends nothing; it runs entirely in your browser.</p>
@@ -182,7 +182,7 @@
                 const btn = this;
                 navigator.clipboard.writeText(text + " " + url).then(function () {
                     btn.textContent = "Copied!";
-                    setTimeout(function () { btn.textContent = "Share"; }, 1500);
+                    setTimeout(function () { btn.textContent = "📤 Share"; }, 1500);
                 });
             }
         });
