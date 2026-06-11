@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Body Fat Calculator — U.S. Navy Tape Method (Metric &amp; Imperial)</title>
+    <meta name="description" content="Free body fat percentage calculator using the U.S. Navy tape method. Just a tape measure needed — no calipers. Metric and imperial, with healthy range categories.">
+    <link rel="canonical" href="https://habitanics.app/tools/body-fat-calculator/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://habitanics.app/tools/body-fat-calculator/">
+    <meta property="og:title" content="Body Fat Calculator — U.S. Navy Tape Method">
+    <meta property="og:description" content="Estimate your body fat percentage with just a tape measure. Free, no signup.">
+    <meta property="og:image" content="https://habitanics.app/app-icon-light.png">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="icon" href="../../favicon-light.png" type="image/png" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="../../favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Body Fat Calculator (U.S. Navy Method)",
+      "url": "https://habitanics.app/tools/body-fat-calculator/",
+      "applicationCategory": "HealthApplication",
+      "operatingSystem": "Any",
+      "description": "Estimates body fat percentage from tape measurements using the U.S. Navy circumference method.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "publisher": { "@type": "Organization", "name": "Habitanics", "url": "https://habitanics.app" }
+    }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Body Fat Calculator</h1>
+        <p>U.S. Navy tape method — no calipers needed</p>
+    </div>
+    <div class="content">
+        <div class="tool">
+            <label>Sex</label>
+            <div class="segmented" id="sex">
+                <button data-sex="male" class="active">Male</button>
+                <button data-sex="female">Female</button>
+            </div>
+
+            <label>Units</label>
+            <div class="segmented" id="units">
+                <button data-units="metric" class="active">cm</button>
+                <button data-units="imperial">inches</button>
+            </div>
+
+            <label for="height">Height (<span class="unit-label">cm</span>)</label>
+            <input type="number" id="height" placeholder="180" min="0" step="0.5">
+
+            <label for="neck">Neck circumference (<span class="unit-label">cm</span>) — below the larynx</label>
+            <input type="number" id="neck" placeholder="38" min="0" step="0.5">
+
+            <label for="waist">Waist circumference (<span class="unit-label">cm</span>) — at the navel</label>
+            <input type="number" id="waist" placeholder="85" min="0" step="0.5">
+
+            <div id="hip-row" style="display: none;">
+                <label for="hip">Hip circumference (<span class="unit-label">cm</span>) — at the widest point</label>
+                <input type="number" id="hip" placeholder="95" min="0" step="0.5">
+            </div>
+
+            <div class="result-card" id="result-card" style="display: none;">
+                <div class="result-big" id="result"></div>
+                <div class="result-sub" id="result-sub"></div>
+            </div>
+            <p class="tool-note">Uses the U.S. Navy circumference formula (Hodgdon &amp; Beckett, 1984). Tape estimates are typically within ±3–4% of lab methods — good for tracking your trend, not for medical decisions. This tool stores nothing and sends nothing; it runs entirely in your browser.</p>
+        </div>
+
+        <h4>Healthy body fat ranges</h4>
+        <p>Reference categories from the American Council on Exercise: for men — essential fat 2–5%, athletes 6–13%, fitness 14–17%, average 18–24%, obese 25%+. For women — essential fat 10–13%, athletes 14–20%, fitness 21–24%, average 25–31%, obese 32%+. Women naturally carry more essential fat; comparing your number to the wrong column is the most common mistake with these calculators.</p>
+        <p>The number itself matters less than its direction over time. Measure monthly, same time of day, same tape positions — and focus on the daily habits (training, protein, sleep) that move it.</p>
+
+        <div class="tool-cta">
+            <p>Body composition is a habit outcome, not a goal you can do in a day. Habitanics turns those daily habits into a garden that grows as you stay consistent.</p>
+            <a href="https://apps.apple.com/us/app/habitanics-garden-habits/id6763303488" class="store-badge" target="_blank" rel="noopener">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download Habitanics on the App Store" width="162" height="54">
+            </a>
+        </div>
+    </div>
+    <footer class="footer-links">
+        <a href="/">Home</a>
+        <a href="/tools/">All Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+    </footer>
+
+    <script>
+    (function () {
+        let sex = "male", units = "metric";
+        const fields = ["height", "neck", "waist", "hip"];
+
+        function wire(groupId, attr, cb) {
+            const group = document.getElementById(groupId);
+            group.querySelectorAll("button").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    group.querySelectorAll("button").forEach(function (b) { b.classList.remove("active"); });
+                    btn.classList.add("active");
+                    cb(btn.dataset[attr]);
+                });
+            });
+        }
+
+        function category(bf) {
+            const bands = sex === "male"
+                ? [[6, "essential fat"], [14, "athlete range"], [18, "fitness range"], [25, "average range"], [Infinity, "above average"]]
+                : [[14, "essential fat"], [21, "athlete range"], [25, "fitness range"], [32, "average range"], [Infinity, "above average"]];
+            for (const band of bands) {
+                if (bf < band[0]) return band[1];
+            }
+        }
+
+        function render() {
+            const card = document.getElementById("result-card");
+            const toCm = units === "metric" ? 1 : 2.54;
+            const v = {};
+            for (const f of fields) {
+                v[f] = parseFloat(document.getElementById(f).value) * toCm;
+            }
+            const needed = sex === "male" ? ["height", "neck", "waist"] : fields;
+            if (needed.some(function (f) { return !v[f] || v[f] <= 0; })) {
+                card.style.display = "none";
+                return;
+            }
+
+            let bf;
+            if (sex === "male") {
+                if (v.waist - v.neck <= 0) { card.style.display = "none"; return; }
+                bf = 495 / (1.0324 - 0.19077 * Math.log10(v.waist - v.neck) + 0.15456 * Math.log10(v.height)) - 450;
+            } else {
+                if (v.waist + v.hip - v.neck <= 0) { card.style.display = "none"; return; }
+                bf = 495 / (1.29579 - 0.35004 * Math.log10(v.waist + v.hip - v.neck) + 0.22100 * Math.log10(v.height)) - 450;
+            }
+            if (!isFinite(bf) || bf < 1 || bf > 75) { card.style.display = "none"; return; }
+
+            card.style.display = "block";
+            document.getElementById("result").textContent = bf.toFixed(1) + "%";
+            document.getElementById("result-sub").textContent =
+                "estimated body fat — " + category(bf) + " for " + (sex === "male" ? "men" : "women") + " (ACE categories)";
+        }
+
+        wire("sex", "sex", function (s) {
+            sex = s;
+            document.getElementById("hip-row").style.display = s === "female" ? "block" : "none";
+            render();
+        });
+        wire("units", "units", function (u) {
+            units = u;
+            document.querySelectorAll(".unit-label").forEach(function (el) {
+                el.textContent = u === "metric" ? "cm" : "in";
+            });
+            render();
+        });
+        fields.forEach(function (f) {
+            document.getElementById(f).addEventListener("input", render);
+        });
+    })();
+    </script>
+</body>
+</html>

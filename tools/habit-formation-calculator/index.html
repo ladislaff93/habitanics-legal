@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habit Formation Calculator — How Long Until Your Habit Sticks?</title>
+    <meta name="description" content="Free calculator: estimate how many days until your habit becomes automatic, based on published habit-formation research (18–254 days, median 66). See your target date.">
+    <link rel="canonical" href="https://habitanics.app/tools/habit-formation-calculator/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://habitanics.app/tools/habit-formation-calculator/">
+    <meta property="og:title" content="Habit Formation Calculator — How Long Until Your Habit Sticks?">
+    <meta property="og:description" content="Estimate how many days until your habit becomes automatic, based on habit-formation research.">
+    <meta property="og:image" content="https://habitanics.app/app-icon-light.png">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="icon" href="../../favicon-light.png" type="image/png" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="../../favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "Habit Formation Calculator",
+      "url": "https://habitanics.app/tools/habit-formation-calculator/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "description": "Estimates how many days a new habit takes to become automatic, based on published habit-formation research.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "publisher": { "@type": "Organization", "name": "Habitanics", "url": "https://habitanics.app" }
+    }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>Habit Formation Calculator</h1>
+        <p>How long until your habit becomes automatic?</p>
+    </div>
+    <div class="content">
+        <div class="tool">
+            <label for="habit">Your habit (optional)</label>
+            <input type="text" id="habit" placeholder="e.g. 10 push-ups after breakfast">
+
+            <label>How hard does it feel right now?</label>
+            <div class="segmented" id="difficulty">
+                <button data-reps="35">Easy</button>
+                <button data-reps="66" class="active">Moderate</button>
+                <button data-reps="110">Hard</button>
+            </div>
+
+            <label>How often will you do it?</label>
+            <div class="segmented" id="frequency">
+                <button data-perweek="7" class="active">Every day</button>
+                <button data-perweek="5">Weekdays</button>
+                <button data-perweek="3">3× a week</button>
+            </div>
+
+            <div class="result-card">
+                <div class="result-big" id="result">~66 days</div>
+                <div class="result-sub" id="result-sub"></div>
+            </div>
+            <p class="tool-note">Estimate based on Lally et al. (2009), <a href="https://onlinelibrary.wiley.com/doi/10.1002/ejsp.674" rel="noopener" target="_blank">"How are habits formed: Modelling habit formation in the real world"</a> — automaticity took 18 to 254 days across participants, with a median of 66. Harder behaviors and lower frequency take longer. This is an estimate, not a promise.</p>
+        </div>
+
+        <h4>Why "21 days to form a habit" is a myth</h4>
+        <p>The famous 21-day figure traces back to a 1960s plastic surgeon's observation about patients adjusting to their new appearance — not to any study of habits. The actual research, tracking people forming real habits like drinking water or doing sit-ups, found it took anywhere from <strong>18 to 254 days</strong> for a behavior to feel automatic, with a median of <strong>66 days</strong>.</p>
+        <p>Two findings from that research are genuinely useful. First, <strong>missing a single day did not measurably hurt habit formation</strong> — consistency over weeks matters, perfection doesn't. Second, what predicts success is <em>repetition in a stable context</em>: same cue, same action, again and again. That's why "after breakfast" beats "sometime in the morning."</p>
+
+        <div class="tool-cta">
+            <p>The flat middle weeks are where habits die. Habitanics gets you through them — each repetition visibly grows a crop in your garden, so day 40 feels as rewarding as day 1.</p>
+            <a href="https://apps.apple.com/us/app/habitanics-garden-habits/id6763303488" class="store-badge" target="_blank" rel="noopener">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download Habitanics on the App Store" width="162" height="54">
+            </a>
+        </div>
+    </div>
+    <footer class="footer-links">
+        <a href="/">Home</a>
+        <a href="/tools/">All Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+    </footer>
+
+    <script>
+    (function () {
+        let reps = 66, perWeek = 7;
+
+        function wire(groupId, attr, cb) {
+            const group = document.getElementById(groupId);
+            group.querySelectorAll("button").forEach(function (btn) {
+                btn.addEventListener("click", function () {
+                    group.querySelectorAll("button").forEach(function (b) { b.classList.remove("active"); });
+                    btn.classList.add("active");
+                    cb(parseInt(btn.dataset[attr], 10));
+                });
+            });
+        }
+
+        function render() {
+            const days = Math.round(reps * 7 / perWeek);
+            const low = Math.round(days * 0.6);
+            const high = Math.round(days * 1.6);
+            const target = new Date();
+            target.setDate(target.getDate() + days);
+            const dateStr = target.toLocaleDateString(undefined, { month: "long", day: "numeric", year: "numeric" });
+            const habit = document.getElementById("habit").value.trim();
+
+            document.getElementById("result").textContent = "~" + days + " days";
+            document.getElementById("result-sub").textContent =
+                (habit ? "“" + habit + "”" : "Your habit") +
+                " should feel automatic around " + dateStr +
+                " (typical range: " + low + "–" + high + " days). Missing one day won't reset your progress.";
+        }
+
+        wire("difficulty", "reps", function (v) { reps = v; render(); });
+        wire("frequency", "perweek", function (v) { perWeek = v; render(); });
+        document.getElementById("habit").addEventListener("input", render);
+        render();
+    })();
+    </script>
+</body>
+</html>

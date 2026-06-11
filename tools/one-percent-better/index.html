@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1% Better Every Day Calculator — See What Tiny Habits Compound Into</title>
+    <meta name="description" content="Free interactive calculator: get 1% better every day and you end up 37x better in a year. Adjust the daily improvement and time period and watch the compound curve.">
+    <link rel="canonical" href="https://habitanics.app/tools/one-percent-better/">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://habitanics.app/tools/one-percent-better/">
+    <meta property="og:title" content="1% Better Every Day Calculator">
+    <meta property="og:description" content="Get 1% better every day and you end up 37x better in a year. Interactive compound improvement calculator.">
+    <meta property="og:image" content="https://habitanics.app/app-icon-light.png">
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../styles.css">
+    <link rel="icon" href="../../favicon-light.png" type="image/png" media="(prefers-color-scheme: light)">
+    <link rel="icon" href="../../favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebApplication",
+      "name": "1% Better Every Day Calculator",
+      "url": "https://habitanics.app/tools/one-percent-better/",
+      "applicationCategory": "UtilityApplication",
+      "operatingSystem": "Any",
+      "description": "Interactive calculator showing how small daily improvements compound over time.",
+      "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
+      "publisher": { "@type": "Organization", "name": "Habitanics", "url": "https://habitanics.app" }
+    }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <h1>1% Better Every Day Calculator</h1>
+        <p>What tiny daily improvements compound into</p>
+    </div>
+    <div class="content">
+        <div class="tool">
+            <label for="rate">Daily improvement: <span id="rate-label">1.0%</span></label>
+            <input type="range" id="rate" min="0.1" max="3" step="0.1" value="1">
+
+            <label for="days">Time period: <span id="days-label">365 days</span></label>
+            <input type="range" id="days" min="30" max="730" step="5" value="365">
+
+            <div class="result-card">
+                <div class="result-big" id="result">37.8&times;</div>
+                <div class="result-sub" id="result-sub">better after 365 days — versus 0.03&times; if you get 1% worse instead</div>
+            </div>
+
+            <svg id="chart" class="tool-chart" viewBox="0 0 600 300" role="img" aria-label="Compound improvement curve"></svg>
+            <p class="tool-note">Green: getting better every day. Brown: getting worse every day. The gap between the two lines is the whole argument for showing up daily.</p>
+        </div>
+
+        <h4>The math behind the meme</h4>
+        <p>The "1% better every day" idea was popularized by James Clear's <em>Atomic Habits</em>: improving by just 1% daily means you're <strong>1.01<sup>365</sup> ≈ 37.8 times better</strong> after a year, while declining 1% daily leaves you at <strong>0.99<sup>365</sup> ≈ 0.03</strong> — near zero. The point isn't the literal number (life isn't compound interest), it's that consistency beats intensity: small actions repeated daily dominate occasional heroic efforts.</p>
+        <p>The hard part was never understanding the math. It's showing up on day 43 when nothing visible has changed yet — that's exactly the flat part of the curve above, and it's where most people quit.</p>
+
+        <div class="tool-cta">
+            <p>Habitanics makes the flat part of the curve visible: every habit you keep grows a crop in your garden, every day.</p>
+            <a href="https://apps.apple.com/us/app/habitanics-garden-habits/id6763303488" class="store-badge" target="_blank" rel="noopener">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download Habitanics on the App Store" width="162" height="54">
+            </a>
+        </div>
+    </div>
+    <footer class="footer-links">
+        <a href="/">Home</a>
+        <a href="/tools/">All Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+    </footer>
+
+    <script>
+    (function () {
+        const rateEl = document.getElementById("rate");
+        const daysEl = document.getElementById("days");
+        const chart = document.getElementById("chart");
+        const W = 600, H = 300, PAD = 10;
+
+        function fmt(x) {
+            if (x >= 100) return Math.round(x) + "×";
+            if (x >= 10) return x.toFixed(1) + "×";
+            return x.toFixed(2) + "×";
+        }
+
+        function render() {
+            const r = parseFloat(rateEl.value) / 100;
+            const days = parseInt(daysEl.value, 10);
+            document.getElementById("rate-label").textContent = (r * 100).toFixed(1) + "%";
+            document.getElementById("days-label").textContent = days + " days";
+
+            const up = Math.pow(1 + r, days);
+            const down = Math.pow(1 - r, days);
+            document.getElementById("result").textContent = fmt(up);
+            document.getElementById("result-sub").textContent =
+                "better after " + days + " days — versus " + fmt(down) + " if you get " + (r * 100).toFixed(1) + "% worse instead";
+
+            // Plot both curves, y scaled to the max of the growth curve.
+            const max = up;
+            let upPts = "", downPts = "";
+            for (let d = 0; d <= days; d++) {
+                const x = PAD + (d / days) * (W - 2 * PAD);
+                const yUp = H - PAD - (Math.pow(1 + r, d) / max) * (H - 2 * PAD);
+                const yDown = H - PAD - (Math.pow(1 - r, d) / max) * (H - 2 * PAD);
+                upPts += x.toFixed(1) + "," + yUp.toFixed(1) + " ";
+                downPts += x.toFixed(1) + "," + yDown.toFixed(1) + " ";
+            }
+            const base = H - PAD - (1 / max) * (H - 2 * PAD);
+            chart.innerHTML =
+                '<line x1="' + PAD + '" y1="' + base.toFixed(1) + '" x2="' + (W - PAD) + '" y2="' + base.toFixed(1) + '" stroke="rgba(44,24,16,0.2)" stroke-dasharray="4 4"/>' +
+                '<polyline points="' + downPts + '" fill="none" stroke="#8a6b4f" stroke-width="2.5"/>' +
+                '<polyline points="' + upPts + '" fill="none" stroke="#4a7c3f" stroke-width="3"/>';
+        }
+
+        rateEl.addEventListener("input", render);
+        daysEl.addEventListener("input", render);
+        render();
+    })();
+    </script>
+</body>
+</html>

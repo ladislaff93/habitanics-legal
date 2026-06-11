@@ -338,3 +338,214 @@ article h3 {
         font-size: 26px;
     }
 }
+
+/* Tools */
+
+.tool-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tool-list a {
+    display: block;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-decoration: none;
+    color: var(--text-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.tool-list h3 {
+    margin: 0 0 4px 0;
+    color: var(--link-color);
+}
+
+.tool-list p {
+    margin: 0;
+    font-size: 15px;
+    opacity: 0.8;
+}
+
+.tool {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 32px;
+}
+
+.tool label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 16px 0 6px 0;
+}
+
+.tool input[type="number"],
+.tool input[type="text"],
+.tool select,
+.tool textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid rgba(44, 24, 16, 0.25);
+    border-radius: 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+.tool input[type="range"] {
+    width: 100%;
+    accent-color: var(--link-color);
+}
+
+.segmented {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.segmented button {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid rgba(44, 24, 16, 0.25);
+    border-radius: 10px;
+    background: var(--background-color);
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.segmented button.active {
+    background: var(--link-color);
+    border-color: var(--link-color);
+    color: #fff;
+    font-weight: 600;
+}
+
+.tool-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 28px;
+    background: var(--link-color);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.result-card {
+    margin-top: 24px;
+    background: var(--alt-background-color);
+    border-radius: 14px;
+    padding: 20px 24px;
+    text-align: center;
+}
+
+.result-big {
+    font-family: "Fredoka", sans-serif;
+    font-size: 44px;
+    font-weight: 600;
+    color: var(--link-color);
+    line-height: 1.2;
+}
+
+.result-sub {
+    font-size: 15px;
+    opacity: 0.8;
+    margin-top: 4px;
+}
+
+.tool-chart {
+    width: 100%;
+    height: auto;
+    margin-top: 16px;
+}
+
+.tool-cta {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.tool-cta p {
+    opacity: 0.85;
+}
+
+.tool-note {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-top: 16px;
+}
+
+/* Printable tracker */
+
+.tracker-grid {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 24px;
+    background: #fff;
+}
+
+.tracker-grid th,
+.tracker-grid td {
+    border: 1px solid rgba(44, 24, 16, 0.3);
+    font-size: 11px;
+    padding: 4px;
+    text-align: center;
+    min-width: 18px;
+    height: 22px;
+}
+
+.tracker-grid th.habit-name,
+.tracker-grid td.habit-name {
+    text-align: left;
+    font-size: 13px;
+    padding: 4px 8px;
+    min-width: 120px;
+    white-space: nowrap;
+}
+
+.tracker-title {
+    font-family: "Fredoka", sans-serif;
+    font-size: 22px;
+    margin: 24px 0 0 0;
+}
+
+.tracker-brand {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-top: 8px;
+}
+
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    #print-area, #print-area * {
+        visibility: visible;
+    }
+
+    #print-area {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+    }
+
+    @page {
+        size: landscape;
+        margin: 1cm;
+    }
+}
