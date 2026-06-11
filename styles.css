@@ -637,23 +637,35 @@ article h3 {
 }
 
 @media print {
-    body * {
-        visibility: hidden;
+    /* Zero page margin removes the browser's printed header/footer
+       (URL, title, date, page numbers); padding on the grid itself
+       restores the visual margin. */
+    @page {
+        size: landscape;
+        margin: 0;
     }
 
-    #print-area, #print-area * {
-        visibility: visible;
+    body {
+        background: #fff;
+    }
+
+    .site-nav,
+    .header,
+    .footer-links,
+    .tool,
+    .tool-cta,
+    .content > h4,
+    .content > p {
+        display: none !important;
+    }
+
+    .content {
+        max-width: none;
+        margin: 0;
+        padding: 0;
     }
 
     #print-area {
-        position: absolute;
-        left: 0;
-        top: 0;
-        width: 100%;
-    }
-
-    @page {
-        size: landscape;
-        margin: 1cm;
+        padding: 1.2cm;
     }
 }
