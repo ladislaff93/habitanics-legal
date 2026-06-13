@@ -3,26 +3,251 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Habitanics — Grow Your Habits</title>
+    <title>Habitanics — Gamified Habit Tracker Farming Game for iOS</title>
+    <meta name="description" content="Habitanics turns your daily habits into a living garden. Complete habits to grow crops, earn coins, and level up — skip them and your crops wilt. A gamified habit tracker for iOS.">
+    <link rel="canonical" href="https://habitanics.app/">
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://habitanics.app/">
+    <meta property="og:title" content="Habitanics — Grow Your Habits. Harvest the Rewards.">
+    <meta property="og:description" content="A habit tracker where your habits grow a real garden. Complete habits, grow crops, earn coins. Skip them and your crops wilt.">
+    <meta property="og:image" content="https://habitanics.app/app-icon-light.png">
+    <meta property="og:site_name" content="Habitanics">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:title" content="Habitanics — Grow Your Habits. Harvest the Rewards.">
+    <meta name="twitter:description" content="A habit tracker where your habits grow a real garden. Complete habits, grow crops, earn coins. Skip them and your crops wilt.">
+    <meta name="twitter:image" content="https://habitanics.app/app-icon-light.png">
+
     <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="icon" href="favicon-light.png" type="image/png" media="(prefers-color-scheme: light)">
     <link rel="icon" href="favicon-dark.png" type="image/png" media="(prefers-color-scheme: dark)">
+
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "Habitanics - Garden Habits",
+      "operatingSystem": "iOS",
+      "applicationCategory": "ProductivityApplication",
+      "description": "A gamified habit tracker where daily habits grow a virtual garden. Complete habits to grow crops, earn coins, and level up. Miss a day and your crops wilt.",
+      "url": "https://habitanics.app/",
+      "image": "https://habitanics.app/app-icon-light.png",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD"
+      },
+      "installUrl": "https://apps.apple.com/us/app/habitanics-garden-habits/id6763303488"
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Habitanics?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Habitanics is a habit tracker for iOS that turns your daily habits into a farming game. Every habit you create plants a crop in your garden. Completing the habit keeps the crop healthy and growing; skipping it makes the crop wilt. When a crop is fully grown you harvest it for coins, which you can trade at the market for new seeds."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Habitanics free?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Habitanics is free to download and starts with a free trial so you can try everything. After the trial, a premium subscription is required to keep growing your garden."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What happens if I miss a habit?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Your crop's health drops and it starts to wilt. Crop health recovers as you get back on track, so one bad day won't kill a thriving garden — but a week of skipped habits will. The garden is an honest mirror of your consistency."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Habitanics good for ADHD?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Many gamified habit trackers work well for ADHD brains because they replace abstract checklists with immediate, visual feedback. In Habitanics you see your progress as a living garden, get instant rewards (coins, XP, growth), and the gentle loss mechanic (wilting crops) creates just enough urgency without punishing streak resets."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How is Habitanics different from Habitica or Finch?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Habitica is an RPG with parties and quests, and Finch is a self-care pet. Habitanics is a cozy farming game: each habit is its own crop with its own health, so you can see exactly which habits are thriving and which are dying at a glance. It focuses on a calm, visual economy — grow, harvest, trade, expand."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is Habitanics available on Android?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Not yet. Habitanics is currently iOS only, built natively with the latest SwiftUI. An Android version may come later."
+          }
+        }
+      ]
+    }
+    </script>
 </head>
 <body>
-    <div class="landing">
-        <div class="landing-content">
-            <img src="app-icon-light.png" alt="Habitanics" class="app-icon">
+    <nav class="site-nav">
+        <a href="/" class="nav-brand"><img src="/favicon-light.png" alt="" class="nav-logo">Habitanics</a>
+        <div class="nav-links">
+            <a href="/tools/">Free Tools</a>
+            <a href="/blog/">Blog</a>
+            <a href="/press/">Press</a>
+        </div>
+    </nav>
+    <main>
+        <!-- Hero -->
+        <section class="hero">
+            <img src="app-icon-light.png" alt="Habitanics app icon" class="app-icon" width="120" height="120">
             <h1>Habitanics</h1>
             <p class="tagline">Grow your habits. Harvest the rewards.</p>
-            <a href="https://apps.apple.com/app/habitanics-habit-tracker/id6763303488" class="store-badge" target="_blank" rel="noopener">
-                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download on the App Store">
+            <p class="hero-sub">A habit tracker where your daily habits grow a living garden. Complete them and your crops thrive. Skip them and your crops wilt.</p>
+            <a href="https://apps.apple.com/us/app/habitanics-garden-habits/id6763303488" class="store-badge" target="_blank" rel="noopener">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download Habitanics on the App Store" width="162" height="54">
             </a>
-        </div>
-        <div class="footer-links">
-            <a href="/privacy-policy">Privacy Policy</a>
-            <a href="/terms-of-service">Terms of Service</a>
-        </div>
-    </div>
+        </section>
+
+        <!-- How it works -->
+        <section class="section" id="how-it-works">
+            <h2>How it works</h2>
+            <div class="steps">
+                <div class="step">
+                    <span class="step-emoji">🌱</span>
+                    <h3>1. Plant a habit</h3>
+                    <p>Every habit you create plants a crop in your garden — tomatoes, carrots, wheat, onions. Harder habits grow more valuable crops.</p>
+                </div>
+                <div class="step">
+                    <span class="step-emoji">💧</span>
+                    <h3>2. Show up daily</h3>
+                    <p>Completing your habits keeps each crop healthy and growing. Miss a day and it starts to wilt — your garden is an honest mirror of your consistency.</p>
+                </div>
+                <div class="step">
+                    <span class="step-emoji">🌾</span>
+                    <h3>3. Harvest &amp; grow</h3>
+                    <p>Harvest grown crops for coins, trade at the market for new seeds, earn XP, and level up to expand your garden.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features + screenshots -->
+        <section class="section alt" id="features">
+            <h2>Your habits, visualized</h2>
+            <div class="features">
+                <div class="feature">
+                    <img src="images/Slice%201.png" alt="Habitanics intro screen — gamified habit tracking" loading="lazy">
+                    <h3>Gamified habit tracking</h3>
+                    <p>Transform your daily habits into a thriving digital sanctuary where every action grows something real.</p>
+                </div>
+                <div class="feature">
+                    <img src="images/Slice%202.png" alt="Habitanics garden screen — crops growing in real time" loading="lazy">
+                    <h3>Your living garden</h3>
+                    <p>A garden that mirrors your effort. Crops grow, wither, and flourish based on how consistently you show up.</p>
+                </div>
+                <div class="feature">
+                    <img src="images/Slice%203.png" alt="Habitanics level up screen — earn XP and unlock garden tiles" loading="lazy">
+                    <h3>Grow habits, grow your garden</h3>
+                    <p>Every completed habit earns XP. Level up to expand your garden and make room for even more habits.</p>
+                </div>
+                <div class="feature">
+                    <img src="images/Slice%204.png" alt="Habitanics habits list — mark tasks and see XP gains" loading="lazy">
+                    <h3>Mark tasks, see gains</h3>
+                    <p>Complete habits and watch XP roll in instantly. Building momentum you can actually see makes it easier to keep going.</p>
+                </div>
+                <div class="feature">
+                    <img src="images/Slice%205.png" alt="Habitanics garden unlock screen — hit goals to unlock new tiles" loading="lazy">
+                    <h3>Hit goals, unlock tiles</h3>
+                    <p>Level up faster by staying consistent. More tiles mean more space to plant, grow, and harvest.</p>
+                </div>
+                <div class="feature">
+                    <img src="images/Slice%206.png" alt="Habitanics market screen — crops and seeds for coins" loading="lazy">
+                    <h3>Rewards for real effort</h3>
+                    <p>Browse crops and seeds in the market. Spend your coins and reinvest your consistency into new growth.</p>
+                </div>
+                <div class="feature">
+                    <img src="images/Slice%207.png" alt="Habitanics reminders screen — never forget a habit or todo" loading="lazy">
+                    <h3>Never forget</h3>
+                    <p>Set reminders for any habit or to-do so you never miss a day. Your garden is counting on you.</p>
+                </div>
+                <div class="feature">
+                    <img src="images/Slice%208.png" alt="Habitanics todos screen — manage one-off tasks alongside habits" loading="lazy">
+                    <h3>Todos alongside habits</h3>
+                    <p>Keep on top of one-off tasks in the same place as your habits. Nothing slips through the cracks.</p>
+                </div>
+                <div class="feature">
+                    <img src="images/Slice%209.png" alt="Habitanics garden watering screen — nurture plants every day" loading="lazy">
+                    <h3>Nurture plants every day</h3>
+                    <p>Water your crops daily to keep them healthy. Consistency is what makes a garden — and a habit — thrive.</p>
+                </div>
+                <div class="feature">
+                    <img src="images/Slice%2010.png" alt="Habitanics new habit screen — set difficulty from trivial to hard" loading="lazy">
+                    <h3>Trivial to Hard — you choose</h3>
+                    <p>Set each habit's difficulty and earn matching rewards. Harder habits take more commitment and yield a bigger harvest.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ -->
+        <section class="section" id="faq">
+            <h2>Frequently asked questions</h2>
+            <div class="faq">
+                <details>
+                    <summary>What is Habitanics?</summary>
+                    <p>Habitanics is a habit tracker for iOS that turns your daily habits into a farming game. Every habit you create plants a crop in your garden. Completing the habit keeps the crop healthy and growing; skipping it makes the crop wilt. When a crop is fully grown you harvest it for coins, which you can trade at the market for new seeds.</p>
+                </details>
+                <details>
+                    <summary>Is Habitanics free?</summary>
+                    <p>Habitanics is free to download and starts with a free trial so you can try everything. After the trial, a premium subscription is required to keep growing your garden.</p>
+                </details>
+                <details>
+                    <summary>What happens if I miss a habit?</summary>
+                    <p>Your crop's health drops and it starts to wilt. Crop health recovers as you get back on track, so one bad day won't kill a thriving garden — but a week of skipped habits will. The garden is an honest mirror of your consistency.</p>
+                </details>
+                <details>
+                    <summary>Is Habitanics good for ADHD?</summary>
+                    <p>Many gamified habit trackers work well for ADHD brains because they replace abstract checklists with immediate, visual feedback. In Habitanics you see your progress as a living garden, get instant rewards (coins, XP, growth), and the gentle loss mechanic (wilting crops) creates just enough urgency without punishing streak resets.</p>
+                </details>
+                <details>
+                    <summary>How is Habitanics different from Habitica or Finch?</summary>
+                    <p>Habitica is an RPG with parties and quests, and Finch is a self-care pet. Habitanics is a cozy farming game: each habit is its own crop with its own health, so you can see exactly which habits are thriving and which are dying at a glance. It focuses on a calm, visual economy — grow, harvest, trade, expand. Read our full <a href="/blog/habitica-alternatives/">comparison of gamified habit trackers</a>.</p>
+                </details>
+                <details>
+                    <summary>Is Habitanics available on Android?</summary>
+                    <p>Not yet. Habitanics is currently iOS only, built natively with the latest SwiftUI. An Android version may come later.</p>
+                </details>
+            </div>
+        </section>
+
+        <!-- Final CTA -->
+        <section class="section alt cta">
+            <h2>Start growing today</h2>
+            <p>Try it free on the App Store. Your first seed is waiting.</p>
+            <a href="https://apps.apple.com/us/app/habitanics-garden-habits/id6763303488" class="store-badge" target="_blank" rel="noopener">
+                <img src="https://developer.apple.com/assets/elements/badges/download-on-the-app-store.svg" alt="Download Habitanics on the App Store" width="162" height="54">
+            </a>
+        </section>
+    </main>
+
+    <footer class="footer-links">
+        <a href="/tools/">Free Tools</a>
+        <a href="/blog/">Blog</a>
+        <a href="/press/">Press Kit</a>
+        <a href="/privacy-policy">Privacy Policy</a>
+        <a href="/terms-of-service">Terms of Service</a>
+    </footer>
 </body>
 </html>

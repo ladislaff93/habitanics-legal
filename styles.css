@@ -1,5 +1,6 @@
 :root {
     --background-color: #F2EFE9;
+    --alt-background-color: #E9E4D8;
     --header-color: #AAA85B;
     --text-color: #2c1810;
     --link-color: #4a7c3f;
@@ -41,7 +42,7 @@ body {
     padding: 40px 20px;
 }
 
-h1, h4 {
+h1, h2, h3, h4 {
     font-family: "Fredoka", sans-serif;
 }
 
@@ -59,30 +60,20 @@ a {
     color: var(--link-color);
 }
 
-a:hover {
-    opacity: 0.7;
-}
-
 /* Landing page */
 
-.landing {
-    min-height: 100vh;
+.hero {
+    min-height: 90vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-}
-
-.landing-content {
     text-align: center;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+    padding: 60px 20px;
+    box-sizing: border-box;
 }
 
-.landing h1 {
+.hero h1 {
     font-size: 48px;
     margin: 0 0 8px 0;
 }
@@ -90,8 +81,14 @@ a:hover {
 .tagline {
     font-size: 20px;
     opacity: 0.7;
-    margin: 0 0 40px 0;
+    margin: 0 0 16px 0;
     font-weight: 500;
+}
+
+.hero-sub {
+    max-width: 32rem;
+    margin: 0 auto 40px auto;
+    opacity: 0.85;
 }
 
 .app-icon {
@@ -105,24 +102,220 @@ a:hover {
 .store-badge {
     display: inline-block;
     margin-top: 8px;
-    opacity: 0.5;
-    cursor: default;
 }
 
 .store-badge img {
     height: 54px;
+    width: auto;
 }
 
-.store-badge-note {
-    font-size: 13px;
-    opacity: 0.5;
-    margin-top: 12px;
+/* Sections */
+
+.section {
+    padding: 72px 20px;
 }
+
+.section.alt {
+    background-color: var(--alt-background-color);
+}
+
+.section h2 {
+    text-align: center;
+    font-size: 32px;
+    margin: 0 0 40px 0;
+}
+
+/* How it works */
+
+.steps {
+    display: flex;
+    gap: 32px;
+    max-width: 60rem;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.step {
+    flex: 1;
+    max-width: 20rem;
+    text-align: center;
+}
+
+.step-emoji {
+    font-size: 40px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.step h3 {
+    font-size: 20px;
+    margin: 0 0 8px 0;
+}
+
+.step p {
+    margin: 0;
+    opacity: 0.85;
+    font-size: 15px;
+}
+
+/* Features */
+
+.features {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 40px;
+    max-width: 70rem;
+    margin: 0 auto;
+    justify-content: center;
+}
+
+.feature {
+    width: 16rem;
+    text-align: center;
+}
+
+.feature img {
+    width: 100%;
+    height: auto;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.12);
+    margin-bottom: 16px;
+}
+
+.feature h3 {
+    font-size: 19px;
+    margin: 0 0 8px 0;
+}
+
+.feature p {
+    margin: 0;
+    opacity: 0.85;
+    font-size: 15px;
+}
+
+/* FAQ */
+
+.faq {
+    max-width: 42rem;
+    margin: 0 auto;
+}
+
+.faq details {
+    border-bottom: 1px solid rgba(44, 24, 16, 0.15);
+    padding: 16px 4px;
+}
+
+.faq summary {
+    font-family: "Fredoka", sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.faq details p {
+    margin: 12px 0 0 0;
+    opacity: 0.85;
+}
+
+/* CTA */
+
+.cta {
+    text-align: center;
+}
+
+.cta p {
+    margin: 0 0 16px 0;
+    opacity: 0.85;
+}
+
+/* Blog */
+
+.post-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.post-list li {
+    margin-bottom: 24px;
+}
+
+.post-list a {
+    font-family: "Fredoka", sans-serif;
+    font-size: 20px;
+    text-decoration: none;
+}
+
+.post-list p {
+    margin: 4px 0 0 0;
+    opacity: 0.8;
+    font-size: 15px;
+}
+
+.post-meta {
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+article h2 {
+    font-family: "Fredoka", sans-serif;
+    font-size: 24px;
+    margin-top: 40px;
+}
+
+article h3 {
+    font-family: "Fredoka", sans-serif;
+    font-size: 19px;
+    margin-top: 28px;
+}
+
+/* Press kit */
+
+.press-assets {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+}
+
+.press-assets a {
+    display: block;
+    width: 10rem;
+    text-align: center;
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.press-assets img {
+    width: 100%;
+    height: auto;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+    margin-bottom: 8px;
+}
+
+.facts-table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.facts-table td {
+    padding: 8px 12px 8px 0;
+    border-bottom: 1px solid rgba(44, 24, 16, 0.12);
+    vertical-align: top;
+}
+
+.facts-table td:first-child {
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+/* Footer */
 
 .footer-links {
     padding: 24px 20px;
     font-size: 14px;
-    opacity: 0.5;
+    opacity: 0.6;
+    text-align: center;
 }
 
 .footer-links a {
@@ -131,8 +324,348 @@ a:hover {
     margin: 0 12px;
 }
 
-@media (max-width: 600px) {
-    .landing h1 {
+@media (max-width: 700px) {
+    .hero h1 {
         font-size: 36px;
+    }
+
+    .steps {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .section h2 {
+        font-size: 26px;
+    }
+}
+
+/* Site nav */
+
+.site-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    max-width: 70rem;
+    margin: 0 auto;
+    padding: 14px 20px;
+    box-sizing: border-box;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-family: "Fredoka", sans-serif;
+    font-weight: 600;
+    font-size: 18px;
+    text-decoration: none;
+    color: var(--text-color);
+    white-space: nowrap;
+}
+
+.nav-logo {
+    width: 26px;
+    height: 26px;
+}
+
+.nav-links a {
+    margin-left: 18px;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+@media (max-width: 700px) {
+    .nav-links a {
+        margin-left: 12px;
+        font-size: 14px;
+    }
+}
+
+/* Tools */
+
+.tool-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.tool-list a {
+    display: block;
+    background: #fff;
+    border-radius: 16px;
+    padding: 20px 24px;
+    text-decoration: none;
+    color: var(--text-color);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+}
+
+.tool-list h3 {
+    margin: 0 0 4px 0;
+    color: var(--link-color);
+}
+
+.tool-list p {
+    margin: 0;
+    font-size: 15px;
+    opacity: 0.8;
+}
+
+.tool {
+    background: #fff;
+    border-radius: 16px;
+    padding: 28px;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    margin-bottom: 32px;
+}
+
+.tool label {
+    display: block;
+    font-weight: 600;
+    font-size: 14px;
+    margin: 16px 0 6px 0;
+}
+
+.tool input[type="number"],
+.tool input[type="text"],
+.tool select,
+.tool textarea {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px 12px;
+    border: 1px solid rgba(44, 24, 16, 0.25);
+    border-radius: 10px;
+    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+.tool input[type="range"] {
+    width: 100%;
+    accent-color: var(--link-color);
+}
+
+.segmented {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.segmented button {
+    flex: 1;
+    padding: 10px 12px;
+    border: 1px solid rgba(44, 24, 16, 0.25);
+    border-radius: 10px;
+    background: var(--background-color);
+    font-family: "Poppins", sans-serif;
+    font-size: 15px;
+    cursor: pointer;
+    color: var(--text-color);
+}
+
+.segmented button.active {
+    background: var(--link-color);
+    border-color: var(--link-color);
+    color: #fff;
+    font-weight: 600;
+}
+
+.tool-button {
+    display: inline-block;
+    margin-top: 20px;
+    padding: 12px 28px;
+    background: var(--link-color);
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-size: 17px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.result-card {
+    margin-top: 24px;
+    background: var(--alt-background-color);
+    border-radius: 14px;
+    padding: 20px 24px;
+    text-align: center;
+}
+
+.result-big {
+    font-family: "Fredoka", sans-serif;
+    font-size: 44px;
+    font-weight: 600;
+    color: var(--link-color);
+    line-height: 1.2;
+}
+
+.result-sub {
+    font-size: 15px;
+    opacity: 0.8;
+    margin-top: 4px;
+}
+
+.share-row {
+    text-align: center;
+    margin-top: 16px;
+}
+
+.share-icon {
+    width: 17px;
+    height: 17px;
+    flex-shrink: 0;
+}
+
+.share-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    background: transparent;
+    color: var(--link-color);
+    border: 2px solid var(--link-color);
+    border-radius: 12px;
+    font-family: "Fredoka", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.tool-chart {
+    width: 100%;
+    height: auto;
+    margin-top: 16px;
+}
+
+.chart-wrap {
+    position: relative;
+}
+
+.chart-tip {
+    display: none;
+    position: absolute;
+    pointer-events: none;
+    background: #fff;
+    border-radius: 10px;
+    padding: 8px 12px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.18);
+    font-size: 13px;
+    line-height: 1.5;
+    white-space: nowrap;
+    z-index: 2;
+}
+
+.chart-tip strong {
+    display: block;
+    font-family: "Fredoka", sans-serif;
+    font-size: 14px;
+}
+
+.chart-tip .tip-up,
+.chart-tip .tip-down {
+    display: block;
+    font-weight: 600;
+}
+
+.chart-tip .tip-up {
+    color: #4a7c3f;
+}
+
+.chart-tip .tip-down {
+    color: #8a6b4f;
+}
+
+.tool-cta {
+    text-align: center;
+    margin: 40px 0;
+}
+
+.tool-cta p {
+    opacity: 0.85;
+}
+
+.tool-note {
+    font-size: 13px;
+    opacity: 0.6;
+    margin-top: 16px;
+}
+
+/* Printable tracker */
+
+.tracker-grid {
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 24px;
+    background: #fff;
+}
+
+.tracker-grid th,
+.tracker-grid td {
+    border: 1px solid rgba(44, 24, 16, 0.3);
+    font-size: 11px;
+    padding: 4px;
+    text-align: center;
+    min-width: 18px;
+    height: 22px;
+}
+
+.tracker-grid th.habit-name,
+.tracker-grid td.habit-name {
+    text-align: left;
+    font-size: 13px;
+    padding: 4px 8px;
+    min-width: 120px;
+    white-space: nowrap;
+}
+
+.tracker-title {
+    font-family: "Fredoka", sans-serif;
+    font-size: 22px;
+    margin: 24px 0 0 0;
+}
+
+.tracker-brand {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-top: 8px;
+}
+
+@media print {
+    /* Zero page margin removes the browser's printed header/footer
+       (URL, title, date, page numbers); padding on the grid itself
+       restores the visual margin. */
+    @page {
+        size: landscape;
+        margin: 0;
+    }
+
+    body {
+        background: #fff;
+    }
+
+    .site-nav,
+    .header,
+    .footer-links,
+    .tool,
+    .tool-cta,
+    .content > h4,
+    .content > p {
+        display: none !important;
+    }
+
+    .content {
+        max-width: none;
+        margin: 0;
+        padding: 0;
+    }
+
+    #print-area {
+        padding: 1.2cm;
     }
 }
